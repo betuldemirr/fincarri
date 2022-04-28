@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "76549509498",
+    "project_id": "fincarri",
+    "storage_bucket": "fincarri.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76549509498:android:b2351359a62fbdadb406c3",
+        "android_client_info": {
+          "package_name": "com.fincarri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "76549509498-l7k54k2ihj5fqk09eb3iiuqfs368uols.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3-5JVhjzc4Ecu6PQVitfzMaY5vof4ddY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "76549509498-l7k54k2ihj5fqk09eb3iiuqfs368uols.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -29,22 +29,79 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   //const [loading, setloading] = useState(true);
-
+  const loginModel = {
+    Mail: "",
+    Password: "",
+    RememberMe: true,
+    UserName: "betuldemir",
+  }
   const goHome = async () => {
-    setIsLoading(true);
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      navigation.navigate('Home');
-      console.log('t');
-    } catch (e) {
-      setIsLoading(false);
-      setError(e.message);
-      //renderWrongPass();
-      console.log('f');
-      console.log(e);
-    }
+    const response = login2();
+    //setIsLoading(true);
+    // try {
+    //   await firebase.auth().signInWithEmailAndPassword(email, password);
+    //   navigation.navigate('Home');
+    //   console.log('t');
+    // } catch (e) {
+    //   setIsLoading(false);
+    //   setError(e.message);
+    //   //renderWrongPass();
+    //   console.log('f');
+    //   console.log(e);
+    // }
   };
+  const login = () => {
+    const loginModel = {
+        mail: email,
+        password: password,
+        rememberMe: true,
+        userName: "betuldemir",
+    };
+    const header = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
 
+    }
+    return fetch('http://192.168.1.9:44356/api/auth/login',{
+      method: 'POST',
+      headers: header,
+      body: loginModel
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      
+  };
+  const login2 = async () => {
+    const loginModel = {
+      mail: email,
+      password: password,
+      rememberMe: true,
+      userName: "betuldemir",
+  };
+  const header = {
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+
+  }
+      return await fetch(
+        'https://0.0.0.0:5001/api/auth/login',{
+          method: 'POST',
+          headers: header,
+          body: JSON.stringify(loginModel)
+        }
+      ).then((response) => response)
+      .then((json) => {
+        console.log(json);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -106,7 +163,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: 'white',
-    width: Dimensions.get('window').width / 1.4,
+    width: Dimensions.get('window').width / 1.2,
     height: Dimensions.get('window').height / 1.5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -116,7 +173,7 @@ const styles = StyleSheet.create({
   },
   input: {
     justifyContent: 'center',
-    width: Dimensions.get('window').width / 1.8,
+    width: Dimensions.get('window').width / 1.6,
     height: Dimensions.get('window').height / 14,
     backgroundColor: 'rgba(139, 173, 135, 0.7)',
     margin: 7,
@@ -134,8 +191,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   logo: {
-    width: 180,
-    height: 180,
+    width: 150,
+    height: 150,
     borderRadius: 20,
     opacity: 0.7,
   },

@@ -54,6 +54,8 @@ const Register = () => {
             <TextInput
               style={styles.input}
               placeholder="E-mail"
+              keyboardType="email-address"
+              maxLength={30}
               value={email}
               onChangeText={text => setEmail(text)}
             />
@@ -61,7 +63,9 @@ const Register = () => {
             <TextInput
               style={styles.input}
               placeholder="Password"
+              maxLength={20}
               value={password}
+              secureTextEntry={true}
               onChangeText={text => setPassword(text)}
             />
 
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     backgroundColor: '#fff',
-    width: Dimensions.get('window').width / 1.4,
+    width: Dimensions.get('window').width / 1.2,
     height: Dimensions.get('window').height / 1.5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
   },
   input: {
     justifyContent: 'center',
-    width: Dimensions.get('window').width / 1.8,
+    width: Dimensions.get('window').width / 1.6,
     height: Dimensions.get('window').height / 14,
     backgroundColor: 'rgba(139, 173, 135, 0.7)',
     margin: 7,

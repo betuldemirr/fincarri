@@ -34,4 +34,17 @@ export default App;
 
 /**
  * initialRouteName="Login"
+ *
+ *
+ *<Stack.Screen
+          initialRouteName="Login"
+          options={{headerShown: false}}
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Register"
+          component={Register}
+        />
  */

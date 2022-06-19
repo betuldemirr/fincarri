@@ -40,9 +40,10 @@ const Takvim = () => {
   return (
     <View style={{flex: 1}}>
       <Agenda
+        style={styles.container}
         items={items}
         loadItemsForMonth={loadItems}
-        selected={'2022-06-09'}
+        selected={'2022-06-19'}
       />
     </View>
   );
@@ -51,20 +52,5 @@ const Takvim = () => {
 export default Takvim;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    width: '100%',
-    height: '10%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomWidth: 3,
-    borderBottomColor: '#FFD700',
-  },
-  title: {
-    fontSize: 30,
-    padding: 10,
-    color: '#FFD700',
-    fontWeight: 'bold',
-    width: '100%',
-  },
+
 });

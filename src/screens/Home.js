@@ -12,6 +12,7 @@ import {
   TextInput,
   FlatList,
 } from 'react-native';
+import Takvim from './components/Takvim';
 //import Header from './components/Header';
 //import List from './components/List';
 
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   totalContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     width: '100%',
     height: 50,
     marginTop: 10,
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     marginTop: 10,
     marginBottom: 10,
   },

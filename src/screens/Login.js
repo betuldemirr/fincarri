@@ -50,26 +50,27 @@ const Login = () => {
     //   console.log(e);
     // }
   };
+  
   const login = () => {
     const loginModel = {
-        mail: email,
-        password: password,
-        rememberMe: true,
-        userName: "betuldemir",
+      mail: "betuldemir@gmail.com",
+      password: "Betul.demir07",
+      rememberMe: true,
+      userName: "betuldemir"
     };
     const header = {
       Accept: 'application/json',
       'Content-Type': 'application/json'
 
     }
-    return fetch('http://192.168.1.9:44356/api/auth/login',{
+    return fetch('http://192.168.1.13:5000/api/auth/login',{
       method: 'POST',
       headers: header,
-      body: loginModel
+      body: JSON.stringify(loginModel),
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log(json.data);
+        console.log(json);
       })
       .catch((error) => {
         console.error(error);
@@ -77,30 +78,27 @@ const Login = () => {
       
   };
   const login2 = async () => {
-    const loginModel = {
-      mail: email,
-      password: password,
-      rememberMe: true,
-      userName: "betuldemir",
-  };
-  const header = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-
-  }
-      return await fetch(
-        'https://0.0.0.0:5001/api/auth/login',{
-          method: 'POST',
-          headers: header,
-          body: JSON.stringify(loginModel)
-        }
-      ).then((response) => response)
-      .then((json) => {
-        console.log(json);
+    fetch('http://192.168.1.13:5000/api/auth/login', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({
+        mail: "betuldemir@gmail.com",
+        password: "Betul.demir07",
+        rememberMe: true,
+        userName: "betuldemir"
       })
-      .catch((error) => {
-        console.error(error);
-      });
+    })
+    .then((response) => response.json())
+    .then((json)=>{
+      console.log(json);
+    })
+    .catch((error)=>{
+      console.log(error);
+    });
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

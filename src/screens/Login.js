@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/core';
+import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/core';
 import firebase from '@react-native-firebase/app';
 import auth from '@react-native-firebase/auth';
 
@@ -29,77 +29,52 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   //const [loading, setloading] = useState(true);
-  const loginModel = {
+  /*const loginModel = {
     Mail: "",
     Password: "",
     RememberMe: true,
     UserName: "betuldemir",
-  }
+  }*/
   const goHome = async () => {
-    const response = login2();
-    //setIsLoading(true);
-    // try {
-    //   await firebase.auth().signInWithEmailAndPassword(email, password);
-    //   navigation.navigate('Home');
-    //   console.log('t');
-    // } catch (e) {
-    //   setIsLoading(false);
-    //   setError(e.message);
-    //   //renderWrongPass();
-    //   console.log('f');
-    //   console.log(e);
-    // }
-  };
-  
-  const login = () => {
-    const loginModel = {
-      mail: "betuldemir@gmail.com",
-      password: "Betul.demir07",
-      rememberMe: true,
-      userName: "betuldemir"
-    };
-    const header = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-
+    //const response = login2();
+    setIsLoading(true);
+    try {
+      await firebase.auth().signInWithEmailAndPassword(email, password);
+      navigation.navigate('Home');
+      console.log('true');
+    } catch (e) {
+      setIsLoading(false);
+      setError(e.message);
+      //renderWrongPass();
+      console.log('false');
+      console.log(e);
     }
-    return fetch('http://192.168.1.13:5000/api/auth/login',{
-      method: 'POST',
-      headers: header,
-      body: JSON.stringify(loginModel),
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        console.log(json);
+    console.log("Başarılı giriş");
+  }
+  /*
+    const login2 = async () => {
+      fetch('http://10.0.2.2/api/auth/login', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          mail: "bugragoks1u@gmail.com",
+          password: "asdasd123",
+          rememberMe: true,
+          userName: "bugragoksuu",
+          name:"bugragoks1u"
+        })
       })
-      .catch((error) => {
-        console.error(error);
-      });
-      
-  };
-  const login2 = async () => {
-    fetch('http://192.168.1.13:5000/api/auth/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({
-        mail: "betuldemir@gmail.com",
-        password: "Betul.demir07",
-        rememberMe: true,
-        userName: "betuldemir"
+      .then((response) => console.log(response))
+      .then((json)=>{
+        console.log(json);  
       })
-    })
-    .then((response) => response.json())
-    .then((json)=>{
-      console.log(json);
-    })
-    .catch((error)=>{
-      console.log(error);
-    });
-  };
+      .catch((error)=>{
+        console.log(error);
+      });*/
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -124,7 +99,7 @@ const Login = () => {
 
             <TextInput
               style={styles.input}
-              placeholder={'Password'}
+              placeholder={'Şifre'}
               maxLength={20}
               secureTextEntry={true}
               value={password}
@@ -135,12 +110,12 @@ const Login = () => {
               style={styles.button}
               onPress={() => goHome()}
               loading={isLoading}>
-              <Text>Login</Text>
+              <Text style={styles.login}>Giriş Yap</Text>
             </TouchableOpacity>
 
-            <Text style={styles.text}>Don't have an account ?</Text>
+            <Text style={styles.text}>Hesabın yok mu ?</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-              <Text style={{...styles.text, color: '#FFD700'}}>Sign up</Text>
+              <Text style={{ ...styles.text, color: '#FFD700' }}>Kaydol</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -202,8 +177,13 @@ const styles = StyleSheet.create({
   },
   text: {
     flexDirection: 'row',
-    color: '#000',
-    fontSize: 13,
+    color: '#242423',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  login: {
+    color: '#242423',
+    fontSize: 15,
     fontWeight: 'bold',
   },
 });

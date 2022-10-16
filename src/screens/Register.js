@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/core';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
 import firebase from '@react-native-firebase/app';
+import axios from 'axios';
 //import auth from '@react-native-firebase/auth';
 
 import {
@@ -39,8 +40,46 @@ const Register = () => {
     } catch (e) {
       setIsLoading(false);
       alert(e.message);
-    }
+    } 
+    Fconsole.log("True");
+    console.log("Başarılı kayıt");
   };
+  /*
+    const onPressRegister = async () => {
+      console.log("register call")
+      axios.post('http://10.0.2.2:5000/api/auth/register', {
+        mail: "betuldemir@gmail.com",
+         password: "Betul-.1",
+         rememberMe: true,
+         userName: "betuldemir",
+         name:"betuldemir123"
+      })
+      .then((response) => {
+        console.log("response:", response.data)
+      }, (error) => {
+        console.log("error:", JSON.stringify(error.response.data))
+      });
+      /*fetch('http://10.0.2.2:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body:
+      })
+      .then((response) => {
+        console.log("response : ")
+        console.log(response)
+      })
+      .then((json)=>{
+        console.log("json : ")
+        console.log(json);  
+      })
+      .catch((error)=>{
+        console.log("error : ")
+        console.log(error);
+      });*/
+  //console.log("after register call")
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -62,7 +101,7 @@ const Register = () => {
 
             <TextInput
               style={styles.input}
-              placeholder="Password"
+              placeholder="Şifre"
               maxLength={20}
               value={password}
               secureTextEntry={true}
@@ -73,7 +112,7 @@ const Register = () => {
               style={styles.button}
               onPress={() => createAccount()}
               loading={isLoading}>
-              <Text>Kaydol</Text>
+              <Text style={styles.kaydol}>Kaydol</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>
@@ -81,6 +120,9 @@ const Register = () => {
     </TouchableWithoutFeedback>
   );
 };
+
+
+
 export default Register;
 
 const styles = StyleSheet.create({
@@ -131,8 +173,8 @@ const styles = StyleSheet.create({
   },
   text: {
     flexDirection: 'row',
-    color: '#000',
-    fontSize: 13,
+    color: '#242423',
+    fontSize: 14,
     fontWeight: 'bold',
   },
   title: {
@@ -141,8 +183,10 @@ const styles = StyleSheet.create({
     color: '#3da660',
     marginBottom: '7%',
   },
+  kaydol: {
+    flexDirection: 'row',
+    color: '#242423',
+    fontSize: 14,
+    fontWeight: 'bold',
+  }
 });
-
-/**
- *
- */

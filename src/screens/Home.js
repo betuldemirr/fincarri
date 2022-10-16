@@ -12,37 +12,72 @@ import {
   TextInput,
   FlatList,
 } from 'react-native';
-import Takvim from './components/Takvim';
-//import Header from './components/Header';
-//import List from './components/List';
+
+let totalIncome = 0;
+let totalExpense = 0;
+let balance = 0;
 
 const Home = () => {
   //total
-  const [totalIncome, setTotalIncome] = useState();
-  const [totalExpense, setTotalExpense] = useState();
+  const [incomeColor,setIncomeColor] = useState('green');
+  const [expenseColor,setExpenseColor] = useState('white');
+  const [priceType,setPriceType] = useState('income');
+  const [textColor,setTextColor] = useState('green');
   //list
   const [price, setPrice] = useState();
   const [txt, setTxt] = useState();
   const [len, setLen] = useState(0);
   const [listItems, setListItems] = useState([]);
-
+  const [state,setState] = useState({totalIncome:totalIncome,totalExpense:totalExpense,listItems:listItems,balance:balance});
+  
   const handleAddList = () => {
     setLen(listItems.length + 1);
-    const submit = {len, txt, price};
-    listItems.push(submit);
+    const listItem = {
+      len:len,
+      txt:txt,
+      price:price,
+      color:textColor
+    }
+    listItems.push(listItem);
+    if(priceType==='income'){
+      let totalincome =  parseInt(totalIncome);
+      totalincome += parseInt(price);
+      totalIncome = totalincome;
+    }
+    else{
+      let totalexpense = parseInt(totalExpense);
+      totalexpense += parseInt(price);
+      totalExpense = totalexpense;
+    }
+    balance = totalIncome-totalExpense;
     setListItems(listItems);
     setTxt(null);
     setPrice(null);
+    setState({totalIncome:totalIncome,totalExpense:totalExpense,listItems:listItems,balance:balance})
   };
+
+  const incomeClickEvent=()=>{
+    setTextColor('green');
+    setPriceType('income');
+    setExpenseColor('white');
+    setIncomeColor('green');
+  }
+
+  const expenseClickEvent=()=>{
+    setTextColor('red');
+    setPriceType('expense');
+    setExpenseColor('red');
+    setIncomeColor('white');
+  }
 
   return (
     <ImageBackground
       source={require('../assets/splash.png')}
       style={styles.imgContainer}>
       <View style={styles.totalContainer}>
-        <Text style={styles.incomeCont}>Gelir:{totalIncome}</Text>
-        <Text style={styles.expenseCont}>Gider:{totalExpense}</Text>
-        <Text style={styles.netCont}>Net:</Text>
+        <TouchableOpacity onPress={()=>incomeClickEvent()} style={[styles.topFrames,{color:incomeColor}]} ><Text style={[styles.incomeCont,{color:incomeColor}]}> Gelir:{totalIncome}</Text></TouchableOpacity>
+        <TouchableOpacity onPress={()=>expenseClickEvent()} style={[styles.topFrames,{color:expenseColor}]}><Text style={[styles.expenseCont,{color:expenseColor}]}>Gider:{totalExpense}</Text></TouchableOpacity>
+        <View style={styles.topFrames}><Text style={styles.netCont}>Net:{balance}</Text></View> 
       </View>
 
       <FlatList
@@ -53,7 +88,7 @@ const Home = () => {
           return (
             <View style={styles.itemsRow}>
               <Text style={styles.itemText}>{item.txt}</Text>
-              <Text style={styles.itemPrice}>₺ {item.price}</Text>
+              <Text style={[styles.itemPrice,{color:item.color}]}>₺ {item.price}</Text>
             </View>
           );
         }}
@@ -68,14 +103,14 @@ const Home = () => {
           <TextInput
             style={styles.expense}
             placeholder={'Açıklama'}
-            placeholderTextColor={'grey'}
+            placeholderTextColor={'#242423'}
             value={txt}
             onChangeText={text => setTxt(text)}
           />
           <TextInput
             style={styles.expense}
             placeholder={'Tutar'}
-            placeholderTextColor={'grey'}
+            placeholderTextColor={'#242423'}
             value={price}
             onChangeText={text => setPrice(text)}
           />
@@ -95,6 +130,13 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
+  topFrames:{
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    textAlign:'center',
+    color:'white'
+  },
   imgContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -104,34 +146,44 @@ const styles = StyleSheet.create({
   totalContainer: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     width: '100%',
-    height: 50,
+    height: 60,
     marginTop: 10,
     paddingLeft: 5,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 4,
+    borderColor: '#FFD700',
   },
   incomeCont: {
+    color:'white',
     width: 120,
     height: 40,
-    fontSize: 20,
+    fontSize: 22,
+    fontWeight: 'bold',
   },
   expenseCont: {
+    color:'white',
     width: 120,
     height: 40,
-    fontSize: 20,
+    fontSize: 22,
+    fontWeight: 'bold',
   },
   netCont: {
+    color:'white',
     width: 120,
     height: 40,
-    fontSize: 20,
+    fontSize: 22,
+    fontWeight: 'bold',
   },
   listContainer: {
     width: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
     marginTop: 10,
     marginBottom: 10,
+    borderWidth: 4,
+    borderColor: '#FFD700',
   },
   itemsRow: {
     flexDirection: 'row',
@@ -143,9 +195,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemText: {
+    color:'white',
     width: '70%',
     paddingLeft: 30,
-    color: 'black',
     fontSize: 20,
   },
   itemPrice: {
@@ -172,6 +224,7 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 15,
     fontWeight: 'bold',
+
   },
   addButton: {
     backgroundColor: '#FFD700',
@@ -191,58 +244,3 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 });
-
-/*
-*{listItems.map((item, index) => {
-          return (
-            <TouchableOpacity text={item} key={index} data={listItems}>
-              <Text>{item.txt}</Text>
-              <Text>{item.price}</Text>
-            </TouchableOpacity>
-          );
-        })}
-        
-
-          const renderEx = ({item}) => {
-    return (
-      <List>
-        <Text>{item.txt}</Text>
-        <Text>{item.price}</Text>
-      </List>
-    );
-  };
-
-
-import CalendarStrip from 'react-native-calendar-strip';
-let dateWhitelist = [
-  {
-    start: moment(),
-    end: moment().add(3, 'days'),
-  },
-];
-let datesBlacklist = [moment().add(1, 'days')];
-
-
-        <CalendarStrip
-        calendarAnimation={{type: 'sequence', duration: 30}}
-        daySelectionAnimation={{
-          type: 'border',
-          duration: 200,
-          borderWidth: 1,
-          borderHighlightColor: 'white',
-        }}
-        style={{height: 100, paddingTop: 20, paddingBottom: 10}}
-        calendarHeaderStyle={{color: 'white'}}
-        calendarColor={'#7743CE'}
-        dateNumberStyle={{color: 'white'}}
-        dateNameStyle={{color: 'white'}}
-        highlightDateNumberStyle={{color: 'white'}}
-        highlightDateNameStyle={{color: 'white'}}
-        disabledDateNameStyle={{color: 'white'}}
-        disabledDateNumberStyle={{color: 'white'}}
-        datesBlacklist={datesBlacklist}
-        dateWhitelist={dateWhitelist}
-        iconContainer={{flex: 0.1}}
-        scrollable={true}
-      />
-*/

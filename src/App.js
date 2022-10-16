@@ -10,7 +10,17 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-
+      <Stack.Screen
+          initialRouteName="Login"
+          options={{headerShown: false}}
+          name="Login"
+          component={Login}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Register"
+          component={Register}
+        />
         <Stack.Screen
           options={{headerShown: false}}
           name="Home"
@@ -27,7 +37,7 @@ export default App;
  *
  *
  *
-        <Stack.Screen
+      <Stack.Screen
           initialRouteName="Login"
           options={{headerShown: false}}
           name="Login"
